@@ -1,14 +1,14 @@
+# mysql/service.yaml
 apiVersion: v1
 kind: Service
 metadata:
-  name: wordpress-service
+  name: mysql-service # MARK B
   namespace: wordpress-tutorial # Match with namespace
 spec:
-  type: NodePort
+  type: ClusterIP
   ports:
-  - port: 80 # Port that publicly exposed to internet
-    targetPort: 80 # Match with MARK C.1
+  - port: 3306 # MARK B.1
+    targetPort: 3306 # Must match with containerPort
     protocol: TCP
-    nodePort: 30080 # Optional: specify a static NodePort if needed
   selector:
-    app: wordpress # Match with MARK C
+    app: mysql # Must match with `MARK A` in mysql/deployment.yaml
